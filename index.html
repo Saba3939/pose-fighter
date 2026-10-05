@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#10151d"/><title>POSE FIGHTER</title></head>
+<body>
+<main class="arena" id="arena" aria-label="POSE FIGHTER 対戦画面">
+  <header class="battle-hud">
+    <section class="player-hud p1"><div class="player-name"><b>1P</b> MECHANICAL <span id="p1-sensor" class="sensor" title="カメラ認識"></span></div><div class="health-track" role="meter" aria-label="1P HP" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="p1-health"><div id="p1-health-fill"></div></div><span class="hp-number" id="p1-hp">100</span><div class="meter-row"><span>EX <b id="p1-meter-value">50</b></span><div class="ex-meter burst-ready" id="p1-meter" role="meter" aria-label="1P EXゲージ" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><div id="p1-meter-fill"></div></div></div></section>
+    <div class="round"><small>ROUND 1</small><strong id="timer">60</strong></div>
+    <section class="player-hud p2"><div class="player-name"><span id="p2-sensor" class="sensor" title="カメラ認識"></span> ELECTRICAL <b>2P</b></div><div class="health-track" role="meter" aria-label="2P HP" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="p2-health"><div id="p2-health-fill"></div></div><span class="hp-number" id="p2-hp">100</span><div class="meter-row"><span>EX <b id="p2-meter-value">50</b></span><div class="ex-meter burst-ready" id="p2-meter" role="meter" aria-label="2P EXゲージ" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><div id="p2-meter-fill"></div></div></div></section>
+  </header>
+  <div class="stage-floor"></div>
+  <div class="fighter fighter-one" id="fighter-one"><div class="shadow"></div><div class="fighter-sprite"></div><div class="hit-spark"></div><span class="combat-text" id="p1-combat"></span></div>
+  <div class="fighter fighter-two" id="fighter-two"><div class="shadow"></div><div class="fighter-sprite"></div><div class="hit-spark"></div><span class="combat-text" id="p2-combat"></span></div>
+  <div class="announcement" id="announcement" role="status"></div>
+  <section class="start-overlay" id="start-overlay"><p class="eyebrow">高専祭 2026</p><h1>POSE<br><span>FIGHTER</span></h1><button id="start-match">対戦スタート</button><p id="start-hint">2人でカメラの前に立ってください</p></section>
+  <div class="camera-mini" id="camera-mini" hidden><video id="camera-video" autoplay playsinline muted></video><span class="camera-p1">1P</span><span class="camera-p2">2P</span></div>
+  <p class="connection-notice" id="connection-notice" role="status" hidden></p>
+  <details class="settings" id="settings"><summary aria-label="設定と操作方法">設定</summary><div class="settings-panel"><label>カメラ<select id="camera-select" disabled><option value="">自動選択</option></select></label><label class="check"><input id="show-camera" type="checkbox" checked/>映像を表示</label><button id="stop-camera" disabled>カメラを停止</button><button id="demo-match">カメラなしで試す</button><button id="reset-match">タイトルへ戻る</button><p>左手UP：ジャブ<br>右手UP：ストレート<br>両手UP：強攻撃<br>腕クロス：ガード<br>両腕を横に開く：コンボ脱出 / EX 50<br>片腕だけ横に開く：カウンター<br>片腕を上、反対を横にするL字：必殺 / EX 100</p><p>手上げは十分高く、横の腕は肩の高さへ。<br>横に開く腕は肘を曲げても使えます。<br>カウンターは通常攻撃に有効。<br>脱出は被弾に合わせて両腕を開く。<br>脱出の腕は少し下がっていてもOK。<br>必殺技はガード可能。</p><p>EXは命中・被弾・ガードで回復。</p><p>左 → 右 → 両手で3連撃。<br>左右は自分の手です。</p><p class="demo-help">キー操作：1P A / S / D・Fでガード<br>2P J / K / L・;でガード<br>脱出 / カウンター / 必殺<br>1P Q / W / E・2P U / I / O</p></div></details>
+</main>
+<script type="module" src="/src/game.ts"></script>
+</body></html>

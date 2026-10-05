@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080b16" />
+    <title>POSE FIGHTER - Pose Camera Lab</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">POSE FIGHTER / TECHNICAL TEST</p>
+          <h1>POSE CAMERA LAB</h1>
+        </div>
+        <div class="topbar-actions">
+          <a class="screen-link" href="/game.html">GAME SCREEN →</a>
+          <div id="system-status" class="system-status" data-state="loading">
+            <span class="status-light" aria-hidden="true"></span>
+            <span id="system-status-text">姿勢モデルを読み込み中...</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="camera-panel" aria-label="カメラ映像と骨格表示">
+        <div id="camera-stage" class="camera-stage is-mirrored">
+          <div class="camera-media">
+            <video id="camera-video" autoplay muted playsinline></video>
+            <canvas id="skeleton-canvas"></canvas>
+          </div>
+          <div class="player-zone player-one" aria-hidden="true">
+            <span>PLAYER 1</span>
+          </div>
+          <div class="player-zone player-two" aria-hidden="true">
+            <span>PLAYER 2</span>
+          </div>
+          <div id="empty-state" class="empty-state">
+            <strong>CAMERA OFFLINE</strong>
+            <span>「カメラを開始」を押してください</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="control-panel" aria-label="カメラ操作">
+        <button id="start-camera" class="button button-primary" type="button">
+          カメラを開始
+        </button>
+        <button id="stop-camera" class="button" type="button" disabled>
+          停止
+        </button>
+        <label class="field camera-field">
+          <span>使用カメラ</span>
+          <select id="camera-select" disabled>
+            <option value="">カメラ開始後に選択できます</option>
+          </select>
+        </label>
+        <label class="toggle-field">
+          <input id="mirror-toggle" type="checkbox" checked />
+          <span>鏡表示</span>
+        </label>
+      </section>
+
+      <section class="monitor-grid" aria-label="認識状態">
+        <article id="player-one-card" class="monitor-card player-one-card">
+          <span>PLAYER 1</span>
+          <strong id="player-one-status">待機中</strong>
+          <div class="pose-result">
+            <span>POSE</span>
+            <strong id="player-one-pose">---</strong>
+          </div>
+          <div class="hold-meter" aria-hidden="true">
+            <i id="player-one-hold"></i>
+          </div>
+        </article>
+        <article class="monitor-card metrics-card">
+          <dl>
+            <div><dt>CAMERA</dt><dd id="camera-resolution">--</dd></div>
+            <div><dt>INFERENCE</dt><dd id="inference-fps">0 FPS</dd></div>
+            <div><dt>LATENCY</dt><dd id="inference-latency">-- ms</dd></div>
+            <div><dt>POSES</dt><dd id="pose-count">0 / 2</dd></div>
+          </dl>
+        </article>
+        <article id="player-two-card" class="monitor-card player-two-card">
+          <span>PLAYER 2</span>
+          <strong id="player-two-status">待機中</strong>
+          <div class="pose-result">
+            <span>POSE</span>
+            <strong id="player-two-pose">---</strong>
+          </div>
+          <div class="hold-meter" aria-hidden="true">
+            <i id="player-two-hold"></i>
+          </div>
+        </article>
+      </section>
+
+      <section class="pose-guide" aria-label="判定可能なポーズ">
+        <span>TEST POSES</span>
+        <div><strong>01</strong><span>両手UP</span><small>両手首を肩より上へ</small></div>
+        <div><strong>02</strong><span>腕クロス</span><small>胸の前で腕を交差</small></div>
+        <div><strong>03</strong><span>しゃがみ</span><small>両膝をしっかり曲げる</small></div>
+        <p>300ms KEEP!</p>
+      </section>
+
+      <p id="notice" class="notice" role="status">
+        カメラ映像は端末内だけで処理し、保存・送信しません。
+      </p>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

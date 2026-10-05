@@ -1,0 +1,505 @@
+:root {
+  color: #f5f7ff;
+  background: #050710;
+  font-family: "Courier New", ui-monospace, monospace;
+  font-synthesis: none;
+  --cyan: #38f2ff;
+  --pink: #ff3ea5;
+  --yellow: #ffe44d;
+  --panel: #0d1223;
+  --line: #2a3458;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(5, 7, 16, 0.84), rgba(5, 7, 16, 0.94)),
+    repeating-linear-gradient(0deg, transparent 0 3px, rgba(56, 242, 255, 0.07) 3px 4px),
+    #050710;
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1500px, 100%);
+  margin: 0 auto;
+  padding: 22px;
+}
+
+.topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.screen-link {
+  padding: 9px 12px;
+  color: var(--yellow);
+  border: 1px solid var(--yellow);
+  background: #271338;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.screen-link:hover {
+  color: #050710;
+  background: var(--yellow);
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--cyan);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+}
+
+h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(24px, 4vw, 52px);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-shadow: 3px 3px 0 #5a1b83;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  font-size: 13px;
+}
+
+.status-light {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 10px var(--yellow);
+}
+
+.system-status[data-state="ready"] .status-light {
+  background: #4cff88;
+  box-shadow: 0 0 10px #4cff88;
+}
+
+.system-status[data-state="error"] .status-light {
+  background: #ff465e;
+  box-shadow: 0 0 10px #ff465e;
+}
+
+.camera-panel {
+  padding: 8px;
+  border: 2px solid var(--line);
+  background: #02030a;
+  box-shadow: 0 0 0 4px #090d1b, 0 16px 50px rgba(0, 0, 0, 0.45);
+}
+
+.camera-stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background:
+    linear-gradient(90deg, transparent 49.9%, rgba(255, 228, 77, 0.3) 50%, transparent 50.1%),
+    #030611;
+}
+
+.camera-media,
+.camera-media video,
+.camera-media canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.camera-media {
+  transition: transform 120ms ease;
+}
+
+.camera-stage.is-mirrored .camera-media {
+  transform: scaleX(-1);
+}
+
+.camera-media video,
+.camera-media canvas {
+  object-fit: contain;
+}
+
+.camera-media canvas {
+  pointer-events: none;
+}
+
+.player-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  pointer-events: none;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.player-zone span {
+  position: absolute;
+  top: 12px;
+  padding: 5px 9px;
+  background: rgba(5, 7, 16, 0.72);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.player-one {
+  left: 0;
+  border-color: rgba(56, 242, 255, 0.32);
+}
+
+.player-one span {
+  left: 12px;
+  color: var(--cyan);
+}
+
+.player-two {
+  right: 0;
+  border-color: rgba(255, 62, 165, 0.32);
+}
+
+.player-two span {
+  right: 12px;
+  color: var(--pink);
+}
+
+.empty-state {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  text-align: center;
+  background: radial-gradient(circle, #151b35 0%, #050710 65%);
+}
+
+.empty-state[hidden] {
+  display: none;
+}
+
+.empty-state strong {
+  color: var(--yellow);
+  font-size: clamp(24px, 4vw, 54px);
+  letter-spacing: 0.08em;
+  animation: blink 1.2s steps(2, end) infinite;
+}
+
+.empty-state span {
+  color: #b6bfdc;
+}
+
+.control-panel {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.button {
+  min-height: 44px;
+  padding: 10px 18px;
+  color: #fff;
+  border: 2px solid #59658f;
+  background: #1a2340;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.button:hover:not(:disabled) {
+  border-color: #fff;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.button-primary {
+  color: #031018;
+  border-color: #9bfbff;
+  background: var(--cyan);
+  box-shadow: 4px 4px 0 #145b70;
+}
+
+.field {
+  display: grid;
+  gap: 5px;
+  color: #9fa9c9;
+  font-size: 12px;
+}
+
+.camera-field {
+  min-width: 280px;
+  flex: 1;
+}
+
+select {
+  min-height: 44px;
+  width: 100%;
+  padding: 8px 10px;
+  color: #fff;
+  border: 1px solid #59658f;
+  border-radius: 0;
+  background: #080d1d;
+}
+
+.toggle-field {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.toggle-field input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--cyan);
+}
+
+.monitor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.7fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.monitor-card {
+  min-height: 88px;
+  padding: 14px;
+  border: 2px solid var(--line);
+  background: var(--panel);
+}
+
+.monitor-card > span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.monitor-card > strong {
+  font-size: clamp(14px, 2vw, 20px);
+}
+
+.pose-result {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.pose-result > span {
+  color: #7f8aae;
+  font-size: 10px;
+}
+
+.pose-result > strong {
+  color: #8490b5;
+  font-size: clamp(15px, 2vw, 22px);
+}
+
+.pose-result > strong[data-state="holding"] {
+  color: var(--yellow);
+}
+
+.pose-result > strong[data-state="confirmed"] {
+  color: #4cff88;
+  text-shadow: 0 0 10px rgba(76, 255, 136, 0.65);
+}
+
+.hold-meter {
+  overflow: hidden;
+  height: 5px;
+  margin-top: 7px;
+  background: #050817;
+}
+
+.hold-meter i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--yellow), #4cff88);
+  transition: width 50ms linear;
+}
+
+.player-one-card > span {
+  color: var(--cyan);
+}
+
+.player-two-card > span {
+  color: var(--pink);
+}
+
+.monitor-card[data-state="active"] {
+  border-color: #4cff88;
+  box-shadow: inset 0 0 20px rgba(76, 255, 136, 0.08);
+}
+
+.monitor-card[data-state="active"] strong {
+  color: #4cff88;
+}
+
+.monitor-card[data-state="partial"] strong {
+  color: var(--yellow);
+}
+
+.monitor-card[data-state="missing"] strong {
+  color: #ff7184;
+}
+
+.metrics-card dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 0;
+}
+
+.metrics-card dl div {
+  min-width: 0;
+}
+
+.metrics-card dt {
+  margin-bottom: 9px;
+  color: #7f8aae;
+  font-size: 11px;
+}
+
+.metrics-card dd {
+  margin: 0;
+  overflow: hidden;
+  color: #fff;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.notice {
+  min-height: 20px;
+  margin: 12px 2px 0;
+  color: #aab4d3;
+  font-size: 13px;
+}
+
+.notice.is-error {
+  color: #ff7184;
+}
+
+.pose-guide {
+  display: grid;
+  grid-template-columns: auto repeat(3, 1fr) auto;
+  align-items: stretch;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pose-guide > span,
+.pose-guide > p,
+.pose-guide > div {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.pose-guide > span,
+.pose-guide > p {
+  display: grid;
+  place-items: center;
+  color: var(--yellow);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.pose-guide > div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1px 9px;
+}
+
+.pose-guide > div strong {
+  grid-row: 1 / 3;
+  align-self: center;
+  color: var(--cyan);
+  font-size: 22px;
+}
+
+.pose-guide > div span {
+  font-weight: 700;
+}
+
+.pose-guide > div small {
+  color: #8994b8;
+}
+
+@keyframes blink {
+  50% { opacity: 0.35; }
+}
+
+@media (max-width: 820px) {
+  .app-shell {
+    padding: 12px;
+  }
+
+  .topbar,
+  .control-panel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .topbar-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .monitor-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .metrics-card {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .camera-field {
+    min-width: 0;
+  }
+
+  .pose-guide {
+    grid-template-columns: 1fr;
+  }
+}
